@@ -83,7 +83,7 @@ namespace PackageSupplier
                 string carId = row[0].ToString();
                 string code = row[1].ToString();
                 string weight = row[2].ToString();
-                string resultMsg = String.Format("{0}-{1}-{2}", carId, code, weight);
+                string resultMsg = String.Format("[C{0}][{1}]{2}", carId, code, weight);
                 try
                 {
                     tcpClient.SendMsg(resultMsg);
