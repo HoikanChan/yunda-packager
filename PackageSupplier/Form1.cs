@@ -51,9 +51,6 @@ namespace PackageSupplier
             TryConnectServerThread.Start();
             #region 初始化串口
             InitSerialPort();
-            SerialPortThread = new Thread(SerialPortReadingMethod);
-            SerialPortThread.IsBackground = true;
-            SerialPortThread.Start();
             #endregion
 
             #region 启动TCPserver 等待相机和PLC连接
@@ -82,6 +79,7 @@ namespace PackageSupplier
             CacheTable.Columns.Add("条形码", typeof(string));
             CacheTable.Columns.Add("重量", typeof(string));
             CarCacheGrid.DataSource = CacheTable;
+
         }
 
         //显示PLC1200连接状态
@@ -153,6 +151,41 @@ namespace PackageSupplier
                 else
                 {
                     serverStateText.Text = "与服务器断开连接";
+                }
+                #endregion
+            }
+        }
+        private void UpdateSerialPortText(bool status)
+        {
+            if (status)
+            {
+                #region SerialPortText.Text = "与服务器连接成功";
+                if (SerialPortText.InvokeRequired)
+                {
+                    this.Invoke(new Action(() =>
+                    {
+                        SerialPortText.Text = "串口已打开";
+                    }));
+                }
+                else
+                {
+                    SerialPortText.Text = "串口已打开";
+                }
+                #endregion
+            }
+            else
+            {
+                #region CameraStateText.Text = "与服务器断开连接";
+                if (serverStateText.InvokeRequired)
+                {
+                    this.Invoke(new Action(() =>
+                    {
+                        serverStateText.Text = "串口已关闭";
+                    }));
+                }
+                else
+                {
+                    serverStateText.Text = "串口已关闭";
                 }
                 #endregion
             }

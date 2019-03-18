@@ -14,7 +14,7 @@ namespace PackageSupplier
         bool canSerialPortRead = false;
         bool IsSerialPortOpened = false;
         List<string> WeightCacheList = new List<string>();
-        #region
+        #region 初始化串口
         void InitSerialPort()
         {
             serialPort.PortName = "com2";
@@ -30,13 +30,13 @@ namespace PackageSupplier
                 serialPort.Open();
                 AddInfoLog("串口连接成功");
                 IsSerialPortOpened = true;
+                UpdateSerialPortText(true);
             }
             catch (Exception ex)
             {
                 AddErrorLog("串口连接失败", ex);
             }
         }
-
         private void SerialPortDataReceiver(object sender, SerialDataReceivedEventArgs e)
         {
             try
@@ -127,7 +127,7 @@ namespace PackageSupplier
             }
             else
             {
-                // TODO
+                AddInfoLog("错误！！收到称重指令，但还未称重");
             }
         }
     }
