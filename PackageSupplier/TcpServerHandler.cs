@@ -53,11 +53,12 @@ namespace PackageSupplier
             AddInfoLog(string.Format("由IP:({0})收到TCP数据-({1}))", clientIP, msg));
             if (clientIP.Contains(PLCIp) && clientIP.Contains(PLCPort))
             {
-                if(msg == "M")
-                {
-                    GetAveWeight();
-                }
-                else if(msg.Length == 4)
+                //if(msg == "M")
+                //{
+                //    GetAveWeight();
+                //}
+                //else 
+                if(msg.Length == 4)
                 {
                     ReceiveCarNumber(msg);
                 }
@@ -82,12 +83,12 @@ namespace PackageSupplier
                 var row = CacheTable.Rows[CachedCarsCount];
                 string carId = row[0].ToString();
                 string code = row[1].ToString();
-                string weight = row[2].ToString();
-                string resultMsg = String.Format("[C{0}][{1}]{2}", carId, code, weight);
+                //string weight = row[2].ToString();
+                string resultMsg = String.Format("[C{0}]{1}", carId, code);
                 try
                 {
                     tcpClient.SendMsg(resultMsg);
-                    AddInfoLog(string.Format("发送给服务器数据=>车号：{0}，条形码：{1}，重量：{2}", carId, code, weight));
+                    AddInfoLog(string.Format("发送给服务器数据=>车号：{0}，条形码：{1}", carId, code));
                 }
                 catch (Exception ex)
                 {
@@ -100,8 +101,8 @@ namespace PackageSupplier
                         CachedCarsCount.ToString().PadLeft(4, '0'),
                         Times.GetDateNow(),
                         carId,
-                        code,
-                        weight
+                        code
+                        //weight
                     });     
                 }));
                 CachedCarsCount++;

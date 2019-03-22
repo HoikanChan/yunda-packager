@@ -49,9 +49,9 @@ namespace PackageSupplier
             LogThread.Start();
             TryConnectServerThread = new Thread(TryConnectServerMethod);
             TryConnectServerThread.Start();
-            #region 初始化串口
-            InitSerialPort();
-            #endregion
+            //#region 初始化串口
+            //InitSerialPort();
+            //#endregion
 
             #region 启动TCPserver 等待相机和PLC连接
             tcpServer = new TcpServer(ServerIp, ServerPort);
@@ -72,12 +72,12 @@ namespace PackageSupplier
             InfoTable.Columns.Add("时间", typeof(string));
             InfoTable.Columns.Add("小车", typeof(string));
             InfoTable.Columns.Add("条形码", typeof(string));
-            InfoTable.Columns.Add("重量", typeof(string));
+            //InfoTable.Columns.Add("重量", typeof(string));
             InfoTable.Columns.Add("备注", typeof(string));
             CarInfoGrid.DataSource = InfoTable;
             CacheTable.Columns.Add("小车", typeof(string));
             CacheTable.Columns.Add("条形码", typeof(string));
-            CacheTable.Columns.Add("重量", typeof(string));
+            //CacheTable.Columns.Add("重量", typeof(string));
             CarCacheGrid.DataSource = CacheTable;
 
         }
@@ -155,41 +155,41 @@ namespace PackageSupplier
                 #endregion
             }
         }
-        private void UpdateSerialPortText(bool status)
-        {
-            if (status)
-            {
-                #region SerialPortText.Text = "与服务器连接成功";
-                if (SerialPortText.InvokeRequired)
-                {
-                    this.Invoke(new Action(() =>
-                    {
-                        SerialPortText.Text = "串口已打开";
-                    }));
-                }
-                else
-                {
-                    SerialPortText.Text = "串口已打开";
-                }
-                #endregion
-            }
-            else
-            {
-                #region CameraStateText.Text = "与服务器断开连接";
-                if (serverStateText.InvokeRequired)
-                {
-                    this.Invoke(new Action(() =>
-                    {
-                        serverStateText.Text = "串口已关闭";
-                    }));
-                }
-                else
-                {
-                    serverStateText.Text = "串口已关闭";
-                }
-                #endregion
-            }
-        }
+        //private void UpdateSerialPortText(bool status)
+        //{
+        //    if (status)
+        //    {
+        //        #region SerialPortText.Text = "与服务器连接成功";
+        //        if (SerialPortText.InvokeRequired)
+        //        {
+        //            this.Invoke(new Action(() =>
+        //            {
+        //                SerialPortText.Text = "串口已打开";
+        //            }));
+        //        }
+        //        else
+        //        {
+        //            SerialPortText.Text = "串口已打开";
+        //        }
+        //        #endregion
+        //    }
+        //    else
+        //    {
+        //        #region CameraStateText.Text = "与服务器断开连接";
+        //        if (serverStateText.InvokeRequired)
+        //        {
+        //            this.Invoke(new Action(() =>
+        //            {
+        //                serverStateText.Text = "串口已关闭";
+        //            }));
+        //        }
+        //        else
+        //        {
+        //            serverStateText.Text = "串口已关闭";
+        //        }
+        //        #endregion
+        //    }
+        //}
 
         private void listView1_SelectedIndexChanged(object sender, EventArgs e)
         {
