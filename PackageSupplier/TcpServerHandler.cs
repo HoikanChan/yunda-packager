@@ -76,6 +76,11 @@ namespace PackageSupplier
 
         private void ReceiveCarNumber(string msg)
         {
+            if(CacheTable.Rows.Count <= CachedCarsCount)
+            {
+                AddInfoLog("还未收到条形码，车号为：" + msg);
+                return;
+            }
             CarCacheGrid.Invoke(new Action(() =>
             {
                 CacheTable.Rows[CachedCarsCount][0] = msg;
